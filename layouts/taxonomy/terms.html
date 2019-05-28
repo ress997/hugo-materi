@@ -1,0 +1,19 @@
+{{ define "title" }}{{ .Title }} | {{ end }}
+
+{{ define "main" }}
+<div id="home">
+	<div class="label">Tags</div>
+	<ul class="posts">
+	{{ $data := .Data }}
+	{{ range $key, $value := .Data.Terms }}
+		<li>
+			<a href="{{ $data.Plural | relURL }}/{{ $key | urlize }}">
+				<div class="p-wrap">
+					<p>{{ $key }}<span class="badge">{{ len $value }}</span></p>
+				</div>
+			</a>
+		</li>
+	{{ end }}
+	</ul>
+</div>
+{{ end }}

@@ -1,0 +1,42 @@
+{{ define "title" }}{{ .Title }} | {{ end }}
+
+{{ define "main" }}
+<section class="single-wrap">
+	<article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+
+		<div class="feat">
+			<h5 class="page-date">
+				<time datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" | html }}" itemprop="datePublished">
+					{{ .Date.Format ( .Site.Params.dateformat | default "Jan 2, 2006") }}
+				</time>
+			</h5>
+		</div>
+
+		<h1 class="page-title" itemprop="name headline">{{ .Title }}</h1>
+		<div itemprop="articleBody">{{ .Content }}</div>
+
+		{{ with .Params.tags }}
+		<div class="page-tags">
+			<ul>
+				{{ range . }}
+				<li><a href="{{ "/tags" }}/{{ lower . }}">{{ . }}</a></li>
+				{{ end }}
+			</ul>
+		</div>
+		{{ end }}
+
+		<h6 class="back-to-top"><a href="#top">Back to Top</a></h6>
+
+
+		<a rel="next" href="/materi-for-jekyll/2014/01/29/welcome-to-jekyll/" id="next">
+			<span class="nav-title nav-title-next">newer</span> &rarr;
+		</a>
+
+
+		<a rel="prev" href="/materi-for-jekyll/2014/01/23/moving-to-tokyo/" id="prev">
+			&larr; <span class="nav-title nav-title-prev">older</span>
+		</a>
+
+	</article>
+</section>
+{{ end }}

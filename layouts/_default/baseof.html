@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="canonical" href="{{ .Permalink }}">
+	<title>{{ block "title" . }}{{ end }}{{ .Site.Title }}</title>
+
+{{ range .AlternativeOutputFormats -}}
+	<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title | safeHTML }}">
+{{ end -}}
+
+	<meta name="description" content="Materi forked from 'hikari for Jekyll'. Apply theme like a Material Design, responsive blog theme for Jekyll">
+	<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic|Noto+Sans:400,700,400italic,700italic|Ubuntu:300,400,700,400italic'>
+
+	<style>{{ partial "main.css" . | safeCSS }}</style>
+
+{{ if and .Site.GoogleAnalytics (not .Site.IsServer) }}
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', {{ .Site.GoogleAnalytics }}, 'auto');
+ga('send', 'pageview');
+</script>
+{{ end }}
+</head>
+<body>
+	<div class="off-canvas">
+
+		{{ with .Site.Params.author }}
+		{{ with .thumbnail }}
+		<figure class="avatar">
+			<img src="{{ . }}" alt="Picture">
+		</figure>
+		{{ end }}
+		<div class="bio">
+			<h1>{{ .name }}</h1>
+			<p>{{ .description }}</p>
+		</div>
+		<nav>
+			<h6>Follow me on</h6>
+			<ul>
+			{{ with .mastodon }}<li><a href="{{ . }}" target="_blank" title="Mastodon" rel="nofollow noopener noreferrer" >Mastodon</a></li>{{ end }}
+			{{ with .twitter }}<li><a href="https://twitter.com/{{ . }}" target="_blank" title="Twitter" rel="nofollow noopener noreferrer" >Twitter</a></li>{{ end }}
+			{{ with .facebook }}<li><a href="https://www.facebook.com/{{ . }}" target="_blank" title="Facebook" rel="nofollow noopener noreferrer" >Facebook</a></li>{{ end }}
+			{{ with .github }}<li><a href="https://github.com/{{ . }}" target="_blank" title="github" rel="nofollow noopener noreferrer" >Github</a></li>{{ end }}
+			</ul>
+		</nav>
+		{{ end }}
+
+		<nav>
+			<h6>Link</h6>
+			<ul>
+				<li><a href="{{ .Site.BaseURL }}">Home</a></li>
+
+			{{ range $key, $_ := .Site.Taxonomies }}
+			<li><a href="{{ $.Site.BaseURL }}/{{ $key }}/">{{ $key }}</a></li>
+			{{ end }}
+
+			</ul>
+		</nav>
+	</div>
+	<div class="site-wrapper">
+		<header>
+			<div class="h-wrap">
+				<h1 class="title">
+					<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+				</h1>
+				<a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
+			</div>
+		</header>
+		<main>
+			{{ block "main" . }}{{ end }}
+		</main>
+		<footer>
+			<small>Powered by Jekyll - Theme: <a href="https://github.com/ogaclejapan/materi-for-jekyll">materi</a> - &copy; ogaclejapan</small>
+		</footer>
+	</div>
+
+	<script>{{ partial "main.js" . | safeJS }}</script>
+</body>
+</html>

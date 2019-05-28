@@ -1,0 +1,12 @@
+name = "Materi"
+license = "MIT"
+homepage = "https://github.com/ress997/hugo-materi"
+licenselink = "https://github.com/ress997/hugo-materi/blob/master/LICENSE"
+description = ""
+tags = []
+features = []
+min_version = "0.41"
+
+[author]
+  name = "Ress"
+  homepage = "https://x39.dev"

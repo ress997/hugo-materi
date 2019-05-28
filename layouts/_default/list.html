@@ -1,0 +1,37 @@
+{{ define "title" }}{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ end }}
+
+{{ define "main" }}
+<div id="home">
+	<ul class="posts">
+
+	{{ range (.Paginate .Data.Pages).Pages }}
+		<li itemscope itemtype="http://schema.org/BlogPosting">
+			<a href="{{ .Permalink }}" itemprop="url">
+				<div class="p-wrap">
+					<time datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" | html }}" itemprop="datePublished">{{ .Date.Format ( .Site.Params.dateformat | default "Jan 2, 2006") }}</time>
+					<p itemprop="name headline">{{ .Title }}</p>
+				</div>
+			</a>
+		</li>
+	{{ end }}
+
+	</ul>
+</div>
+
+{{ if gt .Paginator.TotalPages 1 }}
+<div class="pagination">
+	{{ if .Paginator.HasPrev }}
+	<a href="{{ .Paginator.Prev.URL }}" title="prev" rel="prev">Prev</a>
+	{{ else }}
+	<span class="previous">Newer</span>
+	{{ end }}
+
+	{{ if .Paginator.HasNext }}
+	<a href="{{ .Paginator.Next.URL }}" title="next" rel="next">Next</a>
+	{{ else }}
+	<span class="next">Older</span>
+	{{ end }}
+</div>
+{{ end }}
+
+{{ end }}
